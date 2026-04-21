@@ -1,0 +1,148 @@
+# Wymagania użytkownika – Aplikacja do zarządzania frekwencją
+
+## 1. Cel systemu
+
+System ma umożliwiać wygodne zarządzanie frekwencją uczniów w szkole lub na uczelni. 
+Aplikacja powinna pozwalać nauczycielom na szybkie zaznaczanie obecności, uczniom na podgląd swojej frekwencji,
+a administratorowi na zarządzanie użytkownikami i klasami.
+
+---
+
+# 2. Typy użytkowników
+
+## 2.1 Administrator
+
+Użytkownik odpowiedzialny za konfigurację systemu.
+
+## 2.2 Nauczyciel
+
+Użytkownik prowadzący zajęcia i zaznaczający obecność.
+
+## 2.3 Uczeń
+
+Użytkownik mający wgląd do własnej frekwencji.
+
+---
+
+# 3. Wymagania funkcjonalne
+
+## 3.1 Logowanie i konta
+
+1. Użytkownik musi mieć możliwość zalogowania się do systemu.
+2. System ma umożliwiać wylogowanie.
+3. System powinien rozróżniać role użytkowników.
+4. Administrator ma możliwość tworzenia kont użytkowników.
+5. Administrator ma możliwość edycji oraz usuwania kont.
+
+---
+
+## 3.2 Zarządzanie klasami i grupami
+
+1. Administrator może dodawać klasy/grupy.
+2. Administrator może przypisywać uczniów do klas.
+3. Administrator może przypisywać nauczycieli do klas lub przedmiotów.
+4. System powinien przechowywać listę uczniów w klasach.
+
+---
+
+## 3.3 Obsługa frekwencji
+
+1. Nauczyciel może wybrać klasę oraz datę zajęć.
+2. System wyświetla listę uczniów danej klasy.
+3. Nauczyciel może zaznaczyć status obecności ucznia:
+
+   * obecny,
+   * nieobecny,
+   * spóźniony,
+   * usprawiedliwiony.
+4. Nauczyciel może zapisać frekwencję.
+5. Nauczyciel może edytować wcześniej zapisane dane.
+6. System zapisuje datę i osobę dokonującą wpisu.
+
+---
+
+## 3.4 Podgląd danych
+
+1. Uczeń może zobaczyć swoją historię frekwencji.
+2. Nauczyciel może przeglądać frekwencję swoich klas.
+3. Administrator może przeglądać dane wszystkich użytkowników.
+4. System powinien umożliwiać filtrowanie danych po:
+
+   * klasie,
+   * uczniu,
+   * dacie,
+   * statusie obecności.
+
+---
+
+## 3.5 Raporty i statystyki
+
+1. System oblicza procent frekwencji ucznia.
+2. System pokazuje liczbę nieobecności.
+3. Nauczyciel może wygenerować raport klasy.
+4. Administrator może pobrać raport zbiorczy.
+
+---
+
+# 4. Wymagania niefunkcjonalne
+
+## 4.1 Interfejs użytkownika
+
+1. System powinien być prosty i intuicyjny.
+2. Interfejs powinien działać na komputerze i telefonie.
+3. Dane powinny być czytelnie prezentowane w tabelach.
+
+---
+
+## 4.2 Bezpieczeństwo
+
+1. Hasła użytkowników muszą być szyfrowane.
+2. Dostęp do danych zależy od roli użytkownika.
+3. Niezalogowany użytkownik nie może korzystać z systemu.
+
+---
+
+## 4.3 Wydajność
+
+1. System powinien szybko otwierać listy klas i uczniów.
+2. Zapis frekwencji powinien następować bez zauważalnych opóźnień.
+
+---
+
+# 5. Technologie realizacji
+
+System może zostać wykonany z użyciem:
+
+* Flask - backend
+* MySQL - baza danych
+* HTML / CSS / JavaScript - frontend
+* Bootstrap - interfejs użytkownika
+
+---
+
+# 6. Minimalna wersja projektu
+
+* logowanie,
+* role użytkowników,
+* dodawanie klas,
+* lista uczniów,
+* zaznaczanie obecności,
+* historia frekwencji,
+* baza danych.
+
+---
+
+# 7. Możliwe rozszerzenia
+
+* eksport PDF i/lub XLSX,
+* wykresy frekwencji,
+
+
+---
+
+# 8. Krótki opis projektu
+
+Aplikacja ma wspierać proces ewidencji obecności uczniów poprzez cyfrowe zarządzanie frekwencją. System zastępuje tradycyjne papierowe listy obecności i umożliwia szybki dostęp do danych historycznych.
+
+---
+
