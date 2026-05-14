@@ -11,6 +11,8 @@ attendance-system/
 ├── routes/
 │   ├── users.py
 │   └── attendance.py
+│   └── student.py
+│   └── teacher.py
 │
 ├── templates/
 └── static/

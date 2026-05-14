@@ -1,0 +1,31 @@
+USERS
+-----
+id (PK)
+name
+surname
+email
+password
+role
+   |
+   | 1
+   |--------------------+
+                        |
+CLASS_GROUPS           LESSONS
+-----------            --------
+id (PK)                id (PK)
+name                   class_id (FK)
+                       teacher_id (FK)
+                       topic
+                       lesson_date
+   |
+   | 1
+   |--------------------+
+                        |
+STUDENT_CLASS          ATTENDANCE
+--------------         -----------
+student_id (FK)       id (PK)
+class_id (FK)         student_id (FK)
+                      lesson_id (FK)
+                      status
+                      created_by (FK)
+                      created_at
