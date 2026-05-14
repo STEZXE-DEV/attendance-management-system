@@ -1,0 +1,51 @@
+# =========================
+# USERS API (PowerShell - Invoke-RestMethod)
+# =========================
+
+# GET ALL USERS
+Invoke-RestMethod -Uri "http://127.0.0.1:5000/users" -Method GET
+
+# GET USER BY ID
+Invoke-RestMethod -Uri "http://127.0.0.1:5000/users/1" -Method GET
+
+# CREATE USER
+Invoke-RestMethod -Uri "http://127.0.0.1:5000/users" -Method POST -ContentType "application/json" -Body '{"name":"Piotr","surname":"Zielinski","email":"piotr@test.com","password":"1234","role":"teacher"}'
+
+# UPDATE USER
+Invoke-RestMethod -Uri "http://127.0.0.1:5000/users/1" -Method PUT -ContentType "application/json" -Body '{"name":"PiotrUpdated","surname":"Zielinski","email":"piotr@test.com","role":"teacher"}'
+
+# DELETE USER
+Invoke-RestMethod -Uri "http://127.0.0.1:5000/users/1" -Method DELETE
+
+
+# =========================
+# ATTENDANCE API
+# =========================
+
+# GET ALL ATTENDANCE
+Invoke-RestMethod -Uri "http://127.0.0.1:5000/attendance" -Method GET
+
+# CREATE ATTENDANCE
+Invoke-RestMethod -Uri "http://127.0.0.1:5000/attendance" -Method POST -ContentType "application/json" -Body '{"student_id":3,"lesson_id":1,"status":"present","created_by":2}'
+
+
+# =========================
+# CLASSES API (if exist)
+# =========================
+
+# GET CLASSES
+Invoke-RestMethod -Uri "http://127.0.0.1:5000/classes" -Method GET
+
+# CREATE CLASS
+Invoke-RestMethod -Uri "http://127.0.0.1:5000/classes" -Method POST -ContentType "application/json" -Body '{"name":"1A"}'
+
+
+# =========================
+# LESSONS API (if exist)
+# =========================
+
+# GET LESSONS
+Invoke-RestMethod -Uri "http://127.0.0.1:5000/lessons" -Method GET
+
+# CREATE LESSON
+Invoke-RestMethod -Uri "http://127.0.0.1:5000/lessons" -Method POST -ContentType "application/json" -Body '{"class_id":1,"teacher_id":2,"topic":"Matematyka","lesson_date":"2026-05-14"}'
