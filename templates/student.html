@@ -63,7 +63,7 @@
 
 <script>
 
-const studentId = {{ student_id }};
+const studentId = { student_id };
 
 fetch(`/api/student/${studentId}/attendance`)
     .then(res => res.json())
