@@ -1,24 +1,26 @@
 from flask import Blueprint, jsonify
-from database.db import get_connection
+from models import Attendance, Lesson
 
 student_bp = Blueprint("student", __name__)
+
 
 @student_bp.route("/api/student/<int:student_id>/attendance")
 def student_attendance(student_id):
 
-    conn = get_connection()
+    attendance = Attendance.query.filter_by(
+        student_id=student_id
+    ).all()
 
-    data = conn.execute("""
-        SELECT 
-            lessons.topic,
-            lessons.lesson_date,
-            attendance.status
-        FROM attendance
-        JOIN lessons ON attendance.lesson_id = lessons.id
-        WHERE attendance.student_id = ?
-        ORDER BY lessons.lesson_date DESC
-    """, (student_id,)).fetchall()
+    result = []
 
-    conn.close()
+    for row in attendance:
 
-    return jsonify([dict(row) for row in data])
+        lesson = Lesson.query.get(row.lesson_id)
+
+        result.append({
+            "topic": lesson.topic,
+            "lesson_date": lesson.lesson_date,
+            "status": row.status
+        })
+
+    return jsonify(result)
