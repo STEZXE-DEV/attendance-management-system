@@ -1,7 +1,12 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, render_template
 from models import Attendance, Lesson
 
 student_bp = Blueprint("student", __name__)
+
+
+@student_bp.route("/student/<int:student_id>")
+def student_panel(student_id):
+    return render_template("student.html", student_id=student_id)
 
 
 @student_bp.route("/api/student/<int:student_id>/attendance")

@@ -19,10 +19,6 @@
             border-radius: 10px;
         }
 
-        h1 {
-            text-align: center;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -39,10 +35,6 @@
             background: #333;
             color: white;
         }
-
-        .present { color: green; font-weight: bold; }
-        .absent { color: red; font-weight: bold; }
-        .late { color: orange; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -63,7 +55,7 @@
 
 <script>
 
-const studentId = { student_id };
+const studentId = {{ student_id }};
 
 fetch(`/api/student/${studentId}/attendance`)
     .then(res => res.json())
@@ -73,16 +65,11 @@ fetch(`/api/student/${studentId}/attendance`)
 
         data.forEach(row => {
 
-            let colorClass = "";
-            if (row.status === "present") colorClass = "present";
-            if (row.status === "absent") colorClass = "absent";
-            if (row.status === "late") colorClass = "late";
-
             table.innerHTML += `
                 <tr>
                     <td>${row.topic}</td>
                     <td>${row.lesson_date}</td>
-                    <td class="${colorClass}">${row.status}</td>
+                    <td>${row.status}</td>
                 </tr>
             `;
         });

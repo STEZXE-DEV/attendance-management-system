@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Panel Nauczyciela</title>
+
     <style>
         body {
             font-family: Arial;
-            background: #f4f4f4;
-            margin: 0;
+            background: #f0f2f5;
             padding: 20px;
         }
 
@@ -17,10 +17,6 @@
             background: white;
             padding: 20px;
             border-radius: 10px;
-        }
-
-        h1 {
-            text-align: center;
         }
 
         table {
@@ -41,79 +37,39 @@
         }
 
         button {
-            padding: 5px 10px;
+            padding: 6px 10px;
             cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            margin: 2px;
         }
 
         .present { background: #4caf50; color: white; }
         .absent { background: #f44336; color: white; }
-        .late { background: #ff9800; color: white; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Panel Nauczyciela - Frekwencja</h1>
 
-    <h3>Klasa: 1A | Lekcja: Matematyka</h3>
+    <h1>Panel Nauczyciela</h1>
 
     <table>
         <tr>
             <th>Uczeń</th>
             <th>Status</th>
-            <th>Akcja</th>
         </tr>
 
         <tr>
             <td>Adam Kowalski</td>
-            <td id="status1">brak</td>
             <td>
-                <button class="present" onclick="setStatus(1,'present')">Obecny</button>
-                <button class="absent" onclick="setStatus(1,'absent')">Nieobecny</button>
-                <button class="late" onclick="setStatus(1,'late')">Spóźniony</button>
-            </td>
-        </tr>
-
-        <tr>
-            <td>Jan Nowak</td>
-            <td id="status2">brak</td>
-            <td>
-                <button class="present" onclick="setStatus(2,'present')">Obecny</button>
-                <button class="absent" onclick="setStatus(2,'absent')">Nieobecny</button>
-                <button class="late" onclick="setStatus(2,'late')">Spóźniony</button>
+                <button class="present">Obecny</button>
+                <button class="absent">Nieobecny</button>
             </td>
         </tr>
     </table>
 
-    <br>
-    <button onclick="saveAttendance()">Zapisz frekwencję</button>
 </div>
-
-<script>
-let attendance = {};
-
-function setStatus(studentId, status) {
-    attendance[studentId] = status;
-    document.getElementById("status"+studentId).innerText = status;
-}
-
-function saveAttendance() {
-    fetch("/attendance", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            lesson_id: 1,
-            created_by: 2,
-            data: attendance
-        })
-    })
-    .then(res => res.json())
-    .then(data => alert("Zapisano frekwencję"))
-    .catch(err => console.log(err));
-}
-</script>
 
 </body>
 </html>

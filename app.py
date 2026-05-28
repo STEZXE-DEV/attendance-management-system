@@ -1,16 +1,15 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template
+from db import db
 
 app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///school.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db = SQLAlchemy(app)
-
-from models import *
+db.init_app(app)
 
 with app.app_context():
+    import models
     db.create_all()
 
 from routes.users import users_bp
@@ -23,20 +22,11 @@ app.register_blueprint(student_bp)
 app.register_blueprint(teacher_bp)
 app.register_blueprint(attendance_bp)
 
-with app.app_context():
 
-    if User.query.count() == 0:
+@app.route("/")
+def home():
+    return render_template("home.html")
 
-        admin = User(
-            name="Admin",
-            surname="System",
-            email="admin@test.com",
-            password="1234",
-            role="admin"
-        )
-
-        db.session.add(admin)
-        db.session.commit()
 
 if __name__ == "__main__":
     app.run(debug=True)
