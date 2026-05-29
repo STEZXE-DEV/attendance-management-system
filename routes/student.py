@@ -1,7 +1,11 @@
 from flask import Blueprint, jsonify, render_template
+from flask_login import login_required
 from models import Attendance, Lesson
 
 student_bp = Blueprint("student", __name__)
+
+@login_required
+@student_bp.route("/student/<int:student_id>")
 
 
 @student_bp.route("/student/<int:student_id>")

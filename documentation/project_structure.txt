@@ -1,18 +1,9 @@
-attendance-system/
-│
-├── app.py
-├── init_db.py
-│
-├── database/
-│   ├── db.py
-│   ├── init_db.sql
-│   └── school.db
-│
-├── routes/
-│   ├── users.py
-│   └── attendance.py
-│   └── student.py
-│   └── teacher.py
-│
-├── templates/
-└── static/
+projekt/
+│── app.py
+│── models.py
+│── templates/
+│     ├── login.html
+│     ├── admin.html
+│     ├── teacher.html
+│     └── student.html
+│── database.db (tworzy się automatycznie)

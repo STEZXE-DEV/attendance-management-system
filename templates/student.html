@@ -1,81 +1,50 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Panel Ucznia</title>
+{% extends "base.html" %}
 
-    <style>
-        body {
-            font-family: Arial;
-            background: #f0f2f5;
-            padding: 20px;
-        }
+{% block content %}
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-        }
+<h2 class="mb-3">👨‍🎓 {{ student.name }}</h2>
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+<div class="card shadow-sm p-3">
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
+<h5>📊 Twoja frekwencja</h5>
 
-        th {
-            background: #333;
-            color: white;
-        }
-    </style>
-</head>
-<body>
+<table class="table table-hover mt-3">
 
-<div class="container">
-    <h1>Moja frekwencja</h1>
+<thead class="table-light">
+<tr>
+    <th>Przedmiot</th>
+    <th>Dzień</th>
+    <th>Godzina</th>
+    <th>Status</th>
+</tr>
+</thead>
 
-    <table>
-        <tr>
-            <th>Przedmiot</th>
-            <th>Data</th>
-            <th>Status</th>
-        </tr>
+<tbody>
 
-        <tbody id="table"></tbody>
-    </table>
+{% for a, l, s in records %}
+
+<tr>
+
+    <td>{{ s.name }}</td>
+    <td>{{ l.day }}</td>
+    <td>{{ l.hour }}</td>
+
+    <td>
+        {% if a.present %}
+            <span class="badge bg-success">✔ obecny</span>
+        {% else %}
+            <span class="badge bg-danger">❌ nieobecny</span>
+        {% endif %}
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
 </div>
 
-<script>
-
-const studentId = {{ student_id }};
-
-fetch(`/api/student/${studentId}/attendance`)
-    .then(res => res.json())
-    .then(data => {
-
-        const table = document.getElementById("table");
-
-        data.forEach(row => {
-
-            table.innerHTML += `
-                <tr>
-                    <td>${row.topic}</td>
-                    <td>${row.lesson_date}</td>
-                    <td>${row.status}</td>
-                </tr>
-            `;
-        });
-    });
-
-</script>
-
-</body>
-</html>
+{% endblock %}

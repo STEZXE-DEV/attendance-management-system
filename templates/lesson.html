@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>📖 Lekcja</h2>
+
+<table class="table table-bordered">
+
+<tr>
+    <th>Uczeń</th>
+    <th>Status</th>
+</tr>
+
+{% for s in students %}
+
+<tr>
+    <td>{{ s.name }}</td>
+
+    <td>
+
+        {% set status = att_map.get(s.id) %}
+
+        <!-- OBECNY -->
+        <a href="/mark/{{ lesson.id }}/{{ s.id }}/1"
+           class="btn btn-sm {% if status == True %}btn-success{% else %}btn-outline-success{% endif %}">
+            ✔
+        </a>
+
+        <!-- NIEOBECNY -->
+        <a href="/mark/{{ lesson.id }}/{{ s.id }}/0"
+           class="btn btn-sm {% if status == False %}btn-danger{% else %}btn-outline-danger{% endif %}">
+            ❌
+        </a>
+
+    </td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

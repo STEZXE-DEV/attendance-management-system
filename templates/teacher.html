@@ -1,75 +1,36 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Panel Nauczyciela</title>
+{% extends "base.html" %}
 
-    <style>
-        body {
-            font-family: Arial;
-            background: #f0f2f5;
-            padding: 20px;
-        }
+{% block content %}
 
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-        }
+<h2 class="mb-4">📚 Moje lekcje</h2>
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+<div class="row">
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
+{% for l in lessons %}
 
-        th {
-            background: #333;
-            color: white;
-        }
+<div class="col-md-4 mb-3">
 
-        button {
-            padding: 6px 10px;
-            cursor: pointer;
-            border: none;
-            border-radius: 4px;
-            margin: 2px;
-        }
+    <div class="card shadow-sm">
 
-        .present { background: #4caf50; color: white; }
-        .absent { background: #f44336; color: white; }
-    </style>
-</head>
-<body>
+        <div class="card-body">
 
-<div class="container">
+            <h5 class="card-title">
+                {{ l.day }} {{ l.hour }}
+            </h5>
 
-    <h1>Panel Nauczyciela</h1>
+            <a class="btn btn-primary btn-sm"
+               href="/lesson/{{ l.id }}">
+               Otwórz lekcję
+            </a>
 
-    <table>
-        <tr>
-            <th>Uczeń</th>
-            <th>Status</th>
-        </tr>
+        </div>
 
-        <tr>
-            <td>Adam Kowalski</td>
-            <td>
-                <button class="present">Obecny</button>
-                <button class="absent">Nieobecny</button>
-            </td>
-        </tr>
-    </table>
+    </div>
 
 </div>
 
-</body>
-</html>
+{% endfor %}
+
+</div>
+
+{% endblock %}

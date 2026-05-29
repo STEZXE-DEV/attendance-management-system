@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">🛠 Admin Panel</h2>
+
+<div class="row">
+
+<!-- KLASY -->
+<div class="col-md-4 mb-3">
+<div class="card shadow-sm p-3">
+
+<h5>📚 Klasy</h5>
+
+<form method="POST" action="/admin/add_class" class="mb-3">
+    <input name="name" class="form-control mb-2" placeholder="Nowa klasa">
+    <button class="btn btn-primary w-100">Dodaj klasę</button>
+</form>
+
+<ul class="list-group">
+
+{% for c in classes %}
+<li class="list-group-item d-flex justify-content-between align-items-center">
+
+    <div>
+        {{ c.name }}
+        <span class="badge bg-secondary">
+            {{ students | selectattr("class_id", "equalto", c.id) | list | length }}
+        </span>
+    </div>
+
+    <a href="/admin/delete_class/{{ c.id }}"
+       class="btn btn-danger btn-sm">
+        ❌
+    </a>
+
+</li>
+{% endfor %}
+
+</ul>
+
+</div>
+</div>
+
+
+<!-- UCZNIOWIE -->
+<div class="col-md-4 mb-3">
+<div class="card shadow-sm p-3">
+
+<h5>🎓 Uczniowie</h5>
+
+<form method="POST" action="/admin/add_student" class="mb-3">
+
+    <input name="name" class="form-control mb-2" placeholder="Imię ucznia">
+
+    <select name="class_id" class="form-select mb-2">
+        {% for c in classes %}
+        <option value="{{ c.id }}">{{ c.name }}</option>
+        {% endfor %}
+    </select>
+
+    <button class="btn btn-success w-100">Dodaj ucznia</button>
+</form>
+
+<ul class="list-group">
+
+{% for s in students %}
+<li class="list-group-item d-flex justify-content-between align-items-center">
+
+    <div>
+        {{ s.name }}
+        <small class="text-muted">({{ s.class_id }})</small>
+    </div>
+
+    <a href="/admin/delete_student/{{ s.id }}"
+       class="btn btn-danger btn-sm">
+        ❌
+    </a>
+
+</li>
+{% endfor %}
+
+</ul>
+
+</div>
+</div>
+
+
+<!-- NAUCZYCIELE -->
+<div class="col-md-4 mb-3">
+<div class="card shadow-sm p-3">
+
+<h5>👨‍🏫 Nauczyciele</h5>
+
+<ul class="list-group">
+
+{% for t in teachers %}
+<li class="list-group-item">
+    {{ t.name }}
+</li>
+{% endfor %}
+
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div class="col-md-6 mt-4">
+
+<div class="card p-3 shadow-sm">
+
+<h5>📅 Lekcje</h5>
+
+<form method="POST" action="/admin/add_lesson" class="mb-3">
+
+    <select name="day" class="form-select mb-2" required>
+    <option disabled selected>Wybierz dzień</option>
+    <option value="Poniedziałek">Poniedziałek</option>
+    <option value="Wtorek">Wtorek</option>
+    <option value="Środa">Środa</option>
+    <option value="Czwartek">Czwartek</option>
+    <option value="Piątek">Piątek</option>
+</select>
+
+    <input name="hour" class="form-control mb-2" placeholder="Godzina (np. 08:00)">
+
+    <select name="class_id" class="form-select mb-2">
+        <option disabled selected>Klasa</option>
+        {% for c in classes %}
+        <option value="{{ c.id }}">{{ c.name }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="teacher_id" class="form-select mb-2">
+        <option disabled selected>Nauczyciel</option>
+        {% for t in teachers %}
+        <option value="{{ t.id }}">{{ t.name }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="subject_id" class="form-select mb-2">
+        <option disabled selected>Przedmiot</option>
+        {% for s in subjects %}
+        <option value="{{ s.id }}">{{ s.name }}</option>
+        {% endfor %}
+    </select>
+
+    <button class="btn btn-primary w-100">Dodaj lekcję</button>
+
+</form>
+
+<hr>
+
+<ul class="list-group">
+
+{% for l in lessons %}
+<li class="list-group-item d-flex justify-content-between">
+
+    {{ l.day }} {{ l.hour }}
+
+    <a href="/admin/delete_lesson/{{ l.id }}"
+       class="btn btn-danger btn-sm">
+        ❌
+    </a>
+
+</li>
+{% endfor %}
+
+</ul>
+
+</div>
+
+</div>
+
+{% endblock %}
+

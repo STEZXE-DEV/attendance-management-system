@@ -1,71 +1,55 @@
-from db import db
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 
 class User(db.Model):
-
-    __tablename__ = "users"
-
     id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80))
+    password = db.Column(db.String(80))
+    role = db.Column(db.String(20))
 
-    name = db.Column(db.String(100), nullable=False)
-    surname = db.Column(db.String(100), nullable=False)
-
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)
-
-    role = db.Column(db.String(20), nullable=False)
+    student_id = db.Column(db.Integer, db.ForeignKey("student.id"))
+    teacher_id = db.Column(db.Integer, db.ForeignKey("teacher.id"))
 
 
-class ClassGroup(db.Model):
-
-    __tablename__ = "class_groups"
-
+class SchoolClass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
 
-    name = db.Column(db.String(50), nullable=False)
+
+class Student(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    class_id = db.Column(db.Integer, db.ForeignKey("school_class.id"))
+
+
+class Teacher(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    class_id = db.Column(db.Integer, db.ForeignKey("school_class.id"))
+
+
+class Subject(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
 
 
 class Lesson(db.Model):
-
-    __tablename__ = "lessons"
-
     id = db.Column(db.Integer, primary_key=True)
 
-    class_id = db.Column(
-        db.Integer,
-        db.ForeignKey("class_groups.id")
-    )
+    day = db.Column(db.String(20))
+    hour = db.Column(db.String(20))
 
-    teacher_id = db.Column(
-        db.Integer,
-        db.ForeignKey("users.id")
-    )
-
-    topic = db.Column(db.String(200))
-    lesson_date = db.Column(db.String(50))
+    class_id = db.Column(db.Integer, db.ForeignKey("school_class.id"))
+    teacher_id = db.Column(db.Integer, db.ForeignKey("teacher.id"))
+    subject_id = db.Column(db.Integer, db.ForeignKey("subject.id"))
 
 
 class Attendance(db.Model):
-
-    __tablename__ = "attendance"
-
     id = db.Column(db.Integer, primary_key=True)
 
-    student_id = db.Column(
-        db.Integer,
-        db.ForeignKey("users.id")
-    )
+    lesson_id = db.Column(db.Integer, db.ForeignKey("lesson.id"))
+    student_id = db.Column(db.Integer, db.ForeignKey("student.id"))
 
-    lesson_id = db.Column(
-        db.Integer,
-        db.ForeignKey("lessons.id")
-    )
-
-    status = db.Column(db.String(20))
-
-    created_by = db.Column(
-        db.Integer,
-        db.ForeignKey("users.id")
-    )
-
-    created_at = db.Column(db.String(100))
+    present = db.Column(db.Boolean, default=False)
