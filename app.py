@@ -69,8 +69,11 @@ with app.app_context():
     admin = User(username="admin", password="admin", role="admin")
     u1 = User(username="t1", password="t1", role="teacher", teacher_id=t1.id)
     u2 = User(username="s1", password="s1", role="student", student_id=s1.id)
+    u3 = User(username="t2", password="t2", role="teacher", teacher_id=t2.id)
+    u4 = User(username="s2", password="s2", role="student", student_id=s2.id)
 
-    db.session.add_all([admin, u1, u2])
+
+    db.session.add_all([admin, u1, u2, u3, u4])
     db.session.commit()
 
     l1 = Lesson(day="Pon", hour="08:00", class_id=c1.id, teacher_id=t1.id, subject_id=m.id)
@@ -119,7 +122,7 @@ def admin():
         classes=SchoolClass.query.all(),
         students=Student.query.all(),
         teachers=Teacher.query.all(),
-        subjects=Subject.query.all(),   # 👈 TO JEST „punkt 3”
+        subjects=Subject.query.all(),
         lessons=Lesson.query.all()
     )
 
