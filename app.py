@@ -32,57 +32,6 @@ def role_required(role):
     return d
 
 
-# ---------------- INIT DATA ----------------
-with app.app_context():
-    db.drop_all()
-    db.create_all()
-
-    c1 = SchoolClass(name="1A")
-    c2 = SchoolClass(name="2B")
-    db.session.add_all([c1, c2])
-    db.session.commit()
-
-    m = Subject(name="Matematyka")
-    p = Subject(name="Polski")
-    bio = Subject(name="Biologia")
-    fiz = Subject(name="Fizyka")
-    wf = Subject(name="WF")
-    his = Subject(name="Historia")
-    inf = Subject(name="Informatyka")
-
-    db.session.add_all([m, p, bio, fiz, wf, his, inf])
-    db.session.commit()
-
-    t1 = Teacher(name="Anna", class_id=c1.id)
-    t2 = Teacher(name="Jan", class_id=c2.id)
-
-    db.session.add_all([t1, t2])
-    db.session.commit()
-
-    s1 = Student(name="Adam", class_id=c1.id)
-    s2 = Student(name="Kasia", class_id=c1.id)
-    s3 = Student(name="Piotr", class_id=c2.id)
-
-    db.session.add_all([s1, s2, s3])
-    db.session.commit()
-
-    admin = User(username="admin", password="admin", role="admin")
-    u1 = User(username="t1", password="t1", role="teacher", teacher_id=t1.id)
-    u2 = User(username="s1", password="s1", role="student", student_id=s1.id)
-    u3 = User(username="t2", password="t2", role="teacher", teacher_id=t2.id)
-    u4 = User(username="s2", password="s2", role="student", student_id=s2.id)
-
-
-    db.session.add_all([admin, u1, u2, u3, u4])
-    db.session.commit()
-
-    l1 = Lesson(day="Pon", hour="08:00", class_id=c1.id, teacher_id=t1.id, subject_id=m.id)
-    l2 = Lesson(day="Pon", hour="09:00", class_id=c1.id, teacher_id=t1.id, subject_id=p.id)
-
-    db.session.add_all([l1, l2])
-    db.session.commit()
-
-
 # ---------------- ROUTES ----------------
 @app.route("/")
 def home():
