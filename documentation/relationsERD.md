@@ -1,50 +1,71 @@
 # 📊 Attendance Management System - ERD
 
-## Diagram relacji (Mermaid)
+## 📌 Opis
+Poniższy diagram przedstawia strukturę bazy danych systemu zarządzania frekwencją w szkole (Flask + SQLAlchemy).
+
+---
+
+## 📊 Diagram relacji (Mermaid)
 
 ```mermaid
 erDiagram
 
-    USERS {
+    USER {
         int id PK
-        string name
-        string surname
-        string email
+        string username
         string password
         string role
+        int student_id FK
+        int teacher_id FK
     }
 
-    CLASS_GROUPS {
+    STUDENT {
+        int id PK
+        string name
+        int class_id FK
+    }
+
+    TEACHER {
+        int id PK
+        string name
+        int class_id FK
+    }
+
+    SCHOOL_CLASS {
         int id PK
         string name
     }
 
-    LESSONS {
+    SUBJECT {
         int id PK
-        int class_id FK
-        int teacher_id FK
-        string topic
-        string lesson_date
+        string name
     }
 
-    STUDENT_CLASS {
-        int student_id FK
+    LESSON {
+        int id PK
+        string day
+        string hour
         int class_id FK
+        int teacher_id FK
+        int subject_id FK
     }
 
     ATTENDANCE {
         int id PK
         int student_id FK
         int lesson_id FK
-        string status
-        int created_by FK
-        string created_at
+        boolean present
     }
 
-    USERS ||--o{ LESSONS : teaches
-    CLASS_GROUPS ||--o{ LESSONS : has
-    USERS ||--o{ ATTENDANCE : marks
-    LESSONS ||--o{ ATTENDANCE : contains
+    SCHOOL_CLASS ||--o{ STUDENT : contains
+    SCHOOL_CLASS ||--o{ TEACHER : assigned
 
-    USERS ||--o{ STUDENT_CLASS : assigned
-    CLASS_GROUPS ||--o{ STUDENT_CLASS : contains
+    SCHOOL_CLASS ||--o{ LESSON : has
+    TEACHER ||--o{ LESSON : conducts
+    SUBJECT ||--o{ LESSON : teaches
+
+    LESSON ||--o{ ATTENDANCE : has
+    STUDENT ||--o{ ATTENDANCE : marks
+
+    USER ||--o| STUDENT : profile
+    USER ||--o| TEACHER : profile
