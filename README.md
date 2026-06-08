@@ -49,36 +49,6 @@ Projekt został wykonany jako aplikacja klient-serwer z wykorzystaniem bazy dany
 
 ---
 
-## Struktura projektu
-
-```text
-attendance-management-system/
-│
-├── app.py
-├── models.py
-├── db.db
-├── db_init.py
-│
-├── templates/
-│   ├── base.html
-│   ├── login.html
-│   ├── admin.html
-│   ├── teacher.html
-│   ├── student.html
-│   └── lesson.html
-│
-├── static/
-│   └── style.css
-│
-├── tests/
-│   ├── test_app.py
-│   └── test_integration.py
-│
-└── README.md
-```
-
----
-
 ## Instalacja
 
 ### 1. Klonowanie projektu
