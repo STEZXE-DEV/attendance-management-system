@@ -29,7 +29,7 @@ class FlaskTestCase(unittest.TestCase):
         with app.app_context():
             db.drop_all()
 
-    # ---------------- TEST LOGOWANIA ----------------
+
     def test_login(self):
 
         response = self.app.post(
@@ -43,7 +43,7 @@ class FlaskTestCase(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    # ---------------- TEST BLOKADY ----------------
+
     def test_admin_requires_login(self):
 
         response = self.app.get("/admin")

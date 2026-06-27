@@ -20,12 +20,6 @@ class AdminCRUDTests(unittest.TestCase):
             db.session.add(admin)
             db.session.commit()
 
-    def tearDown(self):
-        with app.app_context():
-            db.session.rollback()
-            db.session.remove()
-            db.drop_all()
-
     def login(self):
         return self.client.post(
             "/login",
@@ -33,7 +27,7 @@ class AdminCRUDTests(unittest.TestCase):
             follow_redirects=True
         )
 
-    # ---------------- CREATE CLASS ----------------
+
     def test_create_class(self):
         self.login()
 
@@ -47,7 +41,7 @@ class AdminCRUDTests(unittest.TestCase):
             c = SchoolClass.query.filter_by(name="3A").first()
             self.assertIsNotNone(c)
 
-    # ---------------- DELETE CLASS ----------------
+
     def test_delete_class(self):
         self.login()
 
@@ -66,7 +60,7 @@ class AdminCRUDTests(unittest.TestCase):
             c = db.session.get(SchoolClass, cid)
             self.assertIsNone(c)
 
-    # ---------------- CREATE STUDENT ----------------
+
     def test_create_student(self):
         self.login()
 

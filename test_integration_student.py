@@ -30,11 +30,6 @@ class StudentTests(unittest.TestCase):
             u.student_id = st.id
             db.session.commit()
 
-    def tearDown(self):
-        with app.app_context():
-            db.session.rollback()
-            db.session.remove()
-            db.drop_all()
 
     def login_student(self):
         return self.client.post(
